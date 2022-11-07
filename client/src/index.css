@@ -15,7 +15,7 @@ code {
 }
 
 .app {
-  min-height: 68vh;
+  /* min-height: 68vh; */
   /* display: flex;
   align-items: center;
   justify-content: center; */
@@ -27,7 +27,7 @@ code {
 
 .test {
   color: rgb(145, 214, 235);
-  color: rgb(39, 39, 88);
-  color: rgb(58, 68, 143);
+  color: rgb(59, 59, 165);
+  color: rgb(81, 89, 147);
   color: rgb(49, 57, 114);
 }

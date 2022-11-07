@@ -4,14 +4,15 @@ import dotenv from "dotenv";
 dotenv.config();
 import connectDb from "./Db/connect.js";
 import "express-async-errors";
+import morgan from "morgan";
+import authRouter from "./routes/authRoutes.js";
+
+app.use(express.json());
 
 //middleware
 
 //routes
-
-import morgan from "morgan";
-
-app.use(express.json());
+app.use("/api/auth", authRouter);
 
 const port = process.env.PORT || 5000;
 

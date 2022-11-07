@@ -12,6 +12,7 @@ const Wrapper = styled.aside`
 
   button:hover {
     box-shadow: 1px 1px 1px 0.5px rgb(180, 180, 180);
+    cursor: pointer;
   }
   .carousel-image {
     width: 85%;

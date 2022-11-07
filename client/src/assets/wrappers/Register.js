@@ -48,5 +48,8 @@ const Wrapper = styled.section`
     place-items: center;
     border-radius: 0.2rem;
   }
+  .form-login {
+    margin: 3.4rem 0;
+  }
 `;
 export default Wrapper;

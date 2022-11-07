@@ -17,7 +17,7 @@ const Wrapper = styled.footer`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 1rem;
+    padding: 1.4rem;
   }
 `;
 export default Wrapper;

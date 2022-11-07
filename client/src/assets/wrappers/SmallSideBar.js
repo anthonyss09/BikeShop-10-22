@@ -15,7 +15,6 @@ const Wrapper = styled.aside`
   .link {
     text-decoration: none;
     color: rgb(40, 40, 40);
-    color: rgb(49, 57, 114);
     font-weight: 500;
     font-size: 1.2rem;
   }

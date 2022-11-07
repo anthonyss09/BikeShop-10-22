@@ -5,12 +5,12 @@ import { Link } from "react-router-dom";
 export default function FormLogin({
   handleEmailChange,
   handlePasswordChange,
-  handleRegister,
+  handleLogin,
 }) {
   return (
     <Wrapper>
       <section className="form-container">
-        <form className="form form-register" onSubmit={handleRegister}>
+        <form className="form form-login" onSubmit={handleLogin}>
           <h2>Login</h2>
           <FormRow
             id="email"
