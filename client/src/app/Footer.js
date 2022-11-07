@@ -5,7 +5,9 @@ export default function Footer() {
     <Wrapper>
       {" "}
       <footer className="footer">
-        <Link className="link">Home</Link>
+        <Link to="/" className="link">
+          Home
+        </Link>
         <Link className="link">Bikes</Link>
         <Link className="link">About</Link>
         <Link className="link">Contact us</Link>

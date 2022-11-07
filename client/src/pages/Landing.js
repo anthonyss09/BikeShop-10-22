@@ -12,7 +12,7 @@ export default function Landing() {
           <br /> the world on a bike
         </h3>
       </section>
-      <section>
+      <section className="carousel-container">
         <Carousel />
       </section>
     </Wrapper>

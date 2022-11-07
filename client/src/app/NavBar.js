@@ -7,7 +7,6 @@ import SmallSidebar from "../components/SmallSideBar";
 
 export default function NavBar() {
   const [toggleMenu, setToggleMenu] = useState(false);
-  console.log(toggleMenu);
   const handleToggleMenu = () => {
     setToggleMenu(!toggleMenu);
   };
@@ -16,13 +15,15 @@ export default function NavBar() {
   if (!toggleMenu) {
     content = (
       <div className="nav-bar nav-links">
-        <NavLink className="nav-link">Home</NavLink>
+        <NavLink to="/" className="nav-link">
+          Home
+        </NavLink>
         <NavLink className="nav-link">Bikes</NavLink>
         <NavLink className="nav-link">About</NavLink>
       </div>
     );
   } else {
-    content = <SmallSidebar />;
+    content = <SmallSidebar onClick={handleToggleMenu} />;
   }
 
   return (

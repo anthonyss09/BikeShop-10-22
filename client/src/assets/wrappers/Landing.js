@@ -34,6 +34,8 @@ const Wrapper = styled.main`
     }
     .header-text {
       color: black;
+      height: 100%;
+      width: 100%;
     }
   }
 `;

@@ -14,15 +14,19 @@ code {
     monospace;
 }
 
+.app {
+  min-height: 68vh;
+  /* display: flex;
+  align-items: center;
+  justify-content: center; */
+}
+
 .carousel-container {
-  margin: 0 1rem;
-  padding: 0.6rem;
-  /* background: rgb(238, 238, 238); */
-  border-radius: 0.25rem;
+  margin-bottom: 1rem;
 }
 
 .test {
-  color: rgb(193, 215, 222);
+  color: rgb(145, 214, 235);
   color: rgb(39, 39, 88);
   color: rgb(58, 68, 143);
   color: rgb(49, 57, 114);
