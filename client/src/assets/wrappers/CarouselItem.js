@@ -7,7 +7,13 @@ const Wrapper = styled.aside`
     margin-top: 0.6rem;
     margin-bottom: 0.6rem;
     border: 1.5px solid rgb(80, 80, 80);
-    border-radius: 0.25rem;
+    // border-radius: 0.25rem;
+    // background: rgb(145, 214, 235);
+    // color: white;
+    // border: none;
+    // padding: 0.4rem 0.6rem;
+    // border-radius: 0;
+    // font-weight: bold;
   }
 
   button:hover {
@@ -15,14 +21,15 @@ const Wrapper = styled.aside`
     cursor: pointer;
   }
   .carousel-image {
-    width: 85%;
+    width: 80%;
     height: 14vh;
   }
 
   .carousel-item {
     // min-width: 120px;
-    max-width: 200px;
-    border: 6px solid rgb(228, 228, 228);
+    max-width: 160px;
+    border: 4px solid rgb(228, 228, 228);
+    // border: 2.5px solid rgb(160, 160, 160);
     background: white;
     text-align: center;
     padding-top: 0.6rem;
