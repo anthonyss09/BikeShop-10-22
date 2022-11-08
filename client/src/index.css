@@ -21,10 +21,20 @@ code {
   justify-content: center; */
 }
 
+.center-text {
+  text-align: center;
+}
+.cover-page {
+  position: absolute;
+  top: 0;
+  z-index: 5;
+  background: white;
+  height: 100vh;
+  width: 100vw;
+}
 .carousel-container {
   margin-bottom: 1rem;
 }
-
 .test {
   color: rgb(145, 214, 235);
   color: rgb(59, 59, 165);

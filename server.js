@@ -4,8 +4,9 @@ import dotenv from "dotenv";
 dotenv.config();
 import connectDb from "./Db/connect.js";
 import "express-async-errors";
-import morgan from "morgan";
 import authRouter from "./routes/authRoutes.js";
+import productRouter from "./routes/productRoutes.js";
+import upload from "./utils/fileUpload.js";
 
 app.use(express.json());
 
@@ -13,6 +14,7 @@ app.use(express.json());
 
 //routes
 app.use("/api/auth", authRouter);
+app.use("/api/products", upload.single("image"), productRouter);
 
 const port = process.env.PORT || 5000;
 

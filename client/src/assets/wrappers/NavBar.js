@@ -10,10 +10,10 @@ const Wrapper = styled.nav`
     right: 1rem;
     font-size: 1rem;
     font-weight: bold;
-    color: rgb(60, 60, 60);
+    color: rgb(70, 70, 70);
     padding: 0.2rem 0.6rem;
     background: white;
-    border-radius: 0.25rem;
+    // border-radius: 0.25rem;
   }
   .btn-user:hover {
     cursor: pointer;

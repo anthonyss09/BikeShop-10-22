@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const Wrapper = styled.aside`
   .menu-container {
-    height: 30vh;
+    min-height: 30vh;
     // width: 100%;
     display: flex;
     flex-direction: column;
@@ -11,6 +11,7 @@ const Wrapper = styled.aside`
     gap: 1rem;
     // background: rgb(198, 198, 198);
     background: rgb(238, 238, 238);
+    padding: 1rem;
   }
   .link {
     text-decoration: none;

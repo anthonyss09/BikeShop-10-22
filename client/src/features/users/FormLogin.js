@@ -1,4 +1,4 @@
-import Wrapper from "../../assets/wrappers/Register";
+import Wrapper from "../../assets/wrappers/Form";
 import FormRow from "../../components/FormRow";
 import { Link } from "react-router-dom";
 

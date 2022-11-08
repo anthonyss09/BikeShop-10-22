@@ -3,7 +3,6 @@ import Wrapper from "../assets/wrappers/Footer";
 export default function Footer() {
   return (
     <Wrapper>
-      {" "}
       <footer className="footer">
         <Link to="/" className="link">
           Home

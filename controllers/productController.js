@@ -35,14 +35,14 @@ const getProduct = async (req, res) => {
 
 const createProduct = async (req, res) => {
   const { name, manufactuer, price, type, imageName } = req.body;
-  const { admin } = req.headers;
-  if (!admin) {
+  const { isadmin } = req.headers;
+
+  if (isadmin === "false") {
     throw new UnauthenticatedError("Invalid credentials");
   }
-  if (!name) {
+  if (!name || !manufactuer || !price || !type) {
     throw new BadRequestError("Please provide all values.");
   }
-  // const { image } = req.file;
 
   try {
     const newProduct = await Product.create({
