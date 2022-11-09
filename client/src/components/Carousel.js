@@ -8,6 +8,7 @@ import CarouselItem from "./CarouselItem";
 
 import MultiCarousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import ProductPreview from "../features/products/ProductPreview";
 
 export default function Carousel() {
   // const responsive = {
@@ -83,25 +84,41 @@ export default function Carousel() {
       slidesToSlide={1}
       swipeable
     >
-      <CarouselItem
+      <ProductPreview
         image={basketBike}
+        _id="636bd43b1db3de174ba1e646"
+        manufactuer="Mongoose"
+        name="Fast Boi"
         imageTitle="Basket bike"
-        price="$999.99"
+        price="999.99"
+        altText="mongoose bike"
       />
-      <CarouselItem
+      <ProductPreview
         image={lightGreenBike}
+        _id="636bd4651db3de174ba1e649"
+        manufactuer="Specialized"
+        name="Cool Wheels"
         imageTitle="Basket bike"
-        price="$999.99"
+        price="1299.99"
+        altText="specialized bike"
       />
-      <CarouselItem
+      <ProductPreview
         image={whiteBike}
+        _id="636bd48f5f01bf6dfb4587c2"
+        manufactuer="Schwinn"
+        name="Lightning"
         imageTitle="Basket bike"
-        price="$999.99"
+        price="1399.98"
+        altText="schwinn bike"
       />
-      <CarouselItem
+      <ProductPreview
         image={blackWhiteBike}
+        _id="636bd4b05f01bf6dfb4587c5"
+        manufactuer="Tonka"
+        name="Whirlwind"
         imageTitle="Basket bike"
-        price="$999.99"
+        price="899.95"
+        altText="tonka bike"
       />
     </MultiCarousel>
   );

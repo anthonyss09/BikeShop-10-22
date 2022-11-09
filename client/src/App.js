@@ -7,6 +7,8 @@ import Footer from "./app/Footer";
 import RegisterPage from "./features/users/RegisterPage";
 import LoginPage from "./features/users/LoginPage";
 import AddProduct from "./features/products/AddProduct";
+import AllProducts from "./features/products/AllProducts";
+import SingleProduct from "./features/products/SingleProduct";
 
 function App() {
   return (
@@ -18,6 +20,12 @@ function App() {
           <Route exact path="/register" element={<RegisterPage />} />
           <Route exact path="/login" element={<LoginPage />} />
           <Route exact path="/add-product" element={<AddProduct />} />
+          <Route exact path="/all-products" element={<AllProducts />} />
+          <Route
+            exact
+            path="/products/:productId"
+            element={<SingleProduct />}
+          />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
         <Footer />

@@ -7,7 +7,9 @@ export default function Footer() {
         <Link to="/" className="link">
           Home
         </Link>
-        <Link className="link">Bikes</Link>
+        <Link to="all-products" className="link">
+          Bikes
+        </Link>
         <Link className="link">About</Link>
         <Link className="link">Contact us</Link>
       </footer>

@@ -12,7 +12,7 @@ export default function SmallSidebar({ onClick }) {
         <NavLink to="/" className="link" onClick={onClick}>
           Home
         </NavLink>
-        <NavLink className="link" onClick={onClick}>
+        <NavLink to="all-products" className="link" onClick={onClick}>
           Bikes
         </NavLink>
         <NavLink className="link" onClick={onClick}>

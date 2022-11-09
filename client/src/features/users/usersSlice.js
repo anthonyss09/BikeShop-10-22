@@ -71,6 +71,36 @@ const usersSlice = createSlice({
   name: "users",
   initialState,
   reducers: {
+    addItemToUserCart(state, action) {
+      const userCart = state.entities[action.payload.userId].userCart;
+      const prodIds = userCart.map((prod) => prod._id);
+      if (prodIds.includes(action.payload._id)) {
+        const index = prodIds.indexOf(action.payload._id);
+        userCart[index].count++;
+      } else {
+        userCart.push(action.payload);
+      }
+      localStorage.setItem(
+        "user",
+        JSON.stringify(state.entities[action.payload.userId])
+      );
+      state.user = state.entities[action.payload.userId];
+    },
+    removeItemFromUserCart(state, action) {
+      const userCart = state.entities[action.payload.userId].userCart;
+      const prodIds = userCart.map((prod) => prod._id);
+      const index = prodIds.indexOf(action.payload._id);
+      if (userCart[index].count === 1) {
+        userCart.splice(index, 1);
+      } else {
+        userCart[index].count--;
+      }
+      localStorage.setItem(
+        "user",
+        JSON.stringify(state.entities[action.payload.userId])
+      );
+      state.user = state.entities[action.payload.userId];
+    },
     logoutUser(state, action) {
       state.ids = [];
       state.entities = {};
@@ -102,6 +132,7 @@ const usersSlice = createSlice({
   },
 });
 
-export const { logoutUser } = usersSlice.actions;
+export const { addItemToUserCart, removeItemFromUserCart, logoutUser } =
+  usersSlice.actions;
 
 export default usersSlice.reducer;

@@ -8,7 +8,9 @@ export default function NavStrip() {
         <NavLink to="/" className="nav-link">
           Home
         </NavLink>
-        <NavLink className="nav-link">Bikes</NavLink>
+        <NavLink to="/all-products" className="nav-link">
+          Bikes
+        </NavLink>
         <NavLink className="nav-link">About</NavLink>
       </div>
     </Wrapper>
