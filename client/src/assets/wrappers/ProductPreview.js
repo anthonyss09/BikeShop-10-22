@@ -18,8 +18,8 @@ const Wrapper = styled.article`
     text-align: center;
     margin: 0.1rem;
     background: white;
-    border: 2px solid rgb(244, 244, 244);
-    border: 2px solid rgb(208, 208, 208);
+    // border: 2px solid rgb(244, 244, 244);
+    // border: 2px solid rgb(208, 208, 208);
     padding: 1rem;
   }
   .preview-image {
@@ -53,9 +53,10 @@ const Wrapper = styled.article`
     color: rgb(80, 80, 80);
     // background: rgb(60, 60, 60);
     // background: rgb(75, 75, 75);
-    // color: white;
-    border: 2px solid rgb(200, 200, 200);
-    border: 2px solid rgb(128, 128, 128);
+    background: rgb(139, 205, 226);
+    color: white;
+    // border: 2px solid rgb(200, 200, 200);
+    // border: 2px solid rgb(128, 128, 128);
   }
   .btn-add-to-cart:hover {
     transform: scale(1.02);

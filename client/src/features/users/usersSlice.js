@@ -14,7 +14,7 @@ const userId = currentUser ? currentUser._id : null;
 
 const initialState = usersAdapter.getInitialState({
   ids: currentUser ? [currentUser._id] : [],
-  entities: currentUser ? { [userId]: { currentUser } } : {},
+  entities: currentUser ? { [userId]: { ...currentUser } } : {},
   token: localStorage.getItem("token") || null,
   user: currentUser ? currentUser : null,
 });
@@ -72,6 +72,7 @@ const usersSlice = createSlice({
   initialState,
   reducers: {
     addItemToUserCart(state, action) {
+      const draft = current(state);
       const userCart = state.entities[action.payload.userId].userCart;
       const prodIds = userCart.map((prod) => prod._id);
       if (prodIds.includes(action.payload._id)) {

@@ -1,16 +1,20 @@
 import Wrapper from "../assets/wrappers/NavBar";
 import { FaBars, FaUserCircle, FaShoppingCart } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import SmallSidebar from "../components/SmallSideBar";
 import NavStrip from "../components/NavStrip";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutUser } from "../features/users/usersSlice";
+import { clearCart } from "../features/cart/cartSlice";
 
 export default function NavBar() {
   const [toggleMenu, setToggleMenu] = useState(false);
   const [toggleUserBtn, setToggleUserBtn] = useState(false);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.users.user);
 
   const handleToggleMenu = () => {
     setToggleMenu(!toggleMenu);
@@ -20,10 +24,14 @@ export default function NavBar() {
   };
   const handleButtonClick = () => {
     setToggleUserBtn(!toggleUserBtn);
-    dispatch(logoutUser());
+    if (user) {
+      dispatch(clearCart());
+      dispatch(logoutUser());
+      navigate("/");
+    } else {
+      navigate("/register");
+    }
   };
-
-  const user = useSelector((state) => state.users.user);
 
   let content;
   if (!toggleMenu) {
@@ -58,7 +66,9 @@ export default function NavBar() {
             size={25}
             onClick={handleToggleUserBtn}
           />
-          <FaShoppingCart size={25} />
+          <Link to="/cart" className="nav-link">
+            <FaShoppingCart size={25} />
+          </Link>
         </div>
         {toggleUserBtn && button}
       </nav>

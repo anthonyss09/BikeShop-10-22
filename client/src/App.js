@@ -9,6 +9,7 @@ import LoginPage from "./features/users/LoginPage";
 import AddProduct from "./features/products/AddProduct";
 import AllProducts from "./features/products/AllProducts";
 import SingleProduct from "./features/products/SingleProduct";
+import CartView from "./features/cart/CartView";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
             path="/products/:productId"
             element={<SingleProduct />}
           />
+          <Route exact path="/cart" element={<CartView />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
         <Footer />

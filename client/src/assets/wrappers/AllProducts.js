@@ -3,8 +3,9 @@ import styled from "styled-components";
 const Wrapper = styled.section`
   h2 {
     font-weight: 400;
-    margin: 0;
-    margin-top: 1rem;
+    width: 100%;
+    margin: 1rem 0;
+    text-align: center;
     // padding-bottom: 1rem;
     // padding: 0.6rem;
     // margin-bottom: 1rem;
@@ -16,6 +17,8 @@ const Wrapper = styled.section`
   }
   section {
     text-align: center;
+    background: rgb(238, 238, 238);
+    margin: 1rem;
     // margin: 0 1rem;
     // padding-top: 1.4rem;
     // padding-top: 0.6rem;

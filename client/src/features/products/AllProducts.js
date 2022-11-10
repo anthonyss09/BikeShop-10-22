@@ -41,10 +41,8 @@ export default function AllProducts() {
 
   return (
     <Wrapper>
-      <section>
-        <h2>All Bikes</h2>
-        {content}
-      </section>
+      <h2>All Bikes</h2>
+      <section>{content}</section>
     </Wrapper>
   );
 }

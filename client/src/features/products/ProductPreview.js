@@ -20,6 +20,7 @@ export default function ProductPreview({
 }) {
   const user = JSON.parse(localStorage.getItem("user")) || null;
   // const user = useSelector((state) => state.user.user) || null;
+
   const dispatch = useDispatch();
   const count = 1;
   const update = {

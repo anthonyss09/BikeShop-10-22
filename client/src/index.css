@@ -33,7 +33,10 @@ code {
   width: 100vw;
 }
 .carousel-container {
-  margin-bottom: 1rem;
+  margin: 1rem;
+  margin-top: 0;
+  background: rgb(238, 238, 238);
+  padding: 0.6rem;
 }
 .test {
   color: rgb(145, 214, 235);

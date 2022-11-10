@@ -8,12 +8,14 @@ const localCart = JSON.parse(localStorage.getItem("localCart")) || {};
 const localCartLength = Object.keys(localCart).length;
 const localCartExists = localCartLength ? true : false;
 const localCartValues = localCartExists && Object.values(localCart);
-let localCartCount;
-let localCartSubTotal;
+let localCartCount = 0;
+let localCartSubTotal = 0;
+
 if (localCartExists && localCartLength > 1) {
-  localCartCount = localCartValues.reduce((a, b) => a.count + b.count);
+  localCartCount = localCartValues.reduce((a, b) => a + b.count, 0);
   localCartSubTotal = localCartValues.reduce(
-    (a, b) => a.price * a.count + b.price * b.count
+    (a, b) => a + b.price * b.count,
+    0
   );
 } else if (localCartExists) {
   localCartCount = localCartValues[0].count;

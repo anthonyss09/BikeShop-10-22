@@ -11,11 +11,13 @@ const Wrapper = styled.aside`
     gap: 1rem;
     // background: rgb(198, 198, 198);
     background: rgb(238, 238, 238);
+    background: rgb(49, 57, 114);
     padding: 1rem;
   }
   .link {
     text-decoration: none;
     color: rgb(40, 40, 40);
+    color: white;
     font-weight: 500;
     font-size: 1.2rem;
   }

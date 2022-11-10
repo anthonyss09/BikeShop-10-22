@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 const Wrapper = styled.footer`
   width: 100vw;
-
   background: rgb(49, 57, 114);
   .link {
     text-decoration: none;

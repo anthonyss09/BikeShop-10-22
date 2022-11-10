@@ -41,7 +41,8 @@ const Wrapper = styled.nav`
   }
   .nav-links {
     padding: 0.4rem 1rem;
-    background: rgb(228, 228, 228);
+    background: rgb(238, 238, 238);
+    background: rgb(250, 250, 250);
     // background: rgb(193, 215, 222);
   }
   .user-circle:hover {
