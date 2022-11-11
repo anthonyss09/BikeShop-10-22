@@ -1,4 +1,10 @@
-import { createSlice, createEntityAdapter, current } from "@reduxjs/toolkit";
+import {
+  createSlice,
+  createEntityAdapter,
+  current,
+  createAsyncThunk,
+} from "@reduxjs/toolkit";
+import axios from "axios";
 
 const cartAdapter = createEntityAdapter({
   selectId: (product) => product._id,
@@ -32,6 +38,25 @@ const initialState = cartAdapter.getInitialState({
     ? localCartSubTotal + localCartSubTotal * 0.0865
     : 0,
 });
+
+export const createCheckoutSession = createAsyncThunk(
+  "/cart/create-checkout-session",
+  async ({ cartTotal }) => {
+    try {
+      const response = await axios.post(
+        "/api/products/create-checkout-session",
+        {
+          cartTotal,
+        }
+      );
+
+      window.location.href = response.data.sessionUrl;
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
 
 export const cartSlice = createSlice({
   name: "cart",

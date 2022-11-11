@@ -18,6 +18,18 @@ const Wrapper = styled.nav`
   .btn-user:hover {
     cursor: pointer;
   }
+  .cart-count {
+    height: 1rem;
+    width: 1rem;
+    font-size: 0.6rem;
+    display: grid;
+    place-items: center;
+    background: rgb(139, 205, 226);
+    border-radius: 50%;
+    position: absolute;
+    right: 0.7rem;
+    top: 0.6rem;
+  }
   .hidden {
     display: hidden;
   }

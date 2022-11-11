@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 const Wrapper = styled.section`
+  text-align: center;
   .btn-checkout {
     width: 100%;
     padding: 1rem;

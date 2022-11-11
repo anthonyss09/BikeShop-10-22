@@ -4,9 +4,7 @@ import InfoProduct from "./InfoProduct";
 
 export default function SingleProduct() {
   const { productId } = useParams();
-  console.log(productId);
   const { data: product, isLoading, isSuccess } = useGetProductQuery(productId);
-  console.log(product);
 
   let content;
   const urlPre = "../../data/uploads/";

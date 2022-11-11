@@ -1,11 +1,17 @@
 import Product from "../models/productModel.js";
 import mongoose from "mongoose";
+import Stripe from "stripe";
+const stripe = new Stripe(
+  "sk_test_51LuIXnA3543f5hOkxXS8ewm1AlEMJzEqt4MHBGrV3je1IfiFwiixpp94FqHW5SHOatZri2sboL9JFk6AamlBTw7H00cX6LsqY8"
+);
 import { StatusCodes } from "http-status-codes";
 import {
   BadRequestError,
   NotFoundError,
   UnauthenticatedError,
 } from "../Errors/index.js";
+import { useAccordionButton } from "react-bootstrap";
+import { response } from "express";
 
 const getAllProducts = async (req, res) => {
   try {
@@ -60,4 +66,34 @@ const createProduct = async (req, res) => {
   }
 };
 
-export { createProduct, getAllProducts, getProduct };
+const createCheckoutSession = async (req, res) => {
+  const PRICE = req.body.cartTotal * 100;
+  const DOMAIN = "http://localhost:3000/cart";
+
+  const product = await stripe.products.create({
+    active: true,
+    name: "productTotal",
+  });
+
+  const price = await stripe.prices.create({
+    product: product.id,
+    unit_amount: PRICE,
+    currency: "usd",
+  });
+
+  const session = await stripe.checkout.sessions.create({
+    line_items: [
+      {
+        // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
+        price: price.id,
+        quantity: 1,
+      },
+    ],
+    mode: "payment",
+    success_url: `${DOMAIN}?success=true`,
+    cancel_url: `${DOMAIN}?canceled=true`,
+  });
+
+  res.status(StatusCodes.OK).json({ sessionUrl: session.url });
+};
+export { createProduct, getAllProducts, getProduct, createCheckoutSession };

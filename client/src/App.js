@@ -14,8 +14,8 @@ import CartView from "./features/cart/CartView";
 function App() {
   return (
     <Router>
+      <NavBar />
       <div className="app">
-        <NavBar />
         <Routes>
           <Route exact path="/" element={<Landing />} />
           <Route exact path="/register" element={<RegisterPage />} />
@@ -30,8 +30,8 @@ function App() {
           <Route exact path="/cart" element={<CartView />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
-        <Footer />
       </div>
+      <Footer />
     </Router>
   );
 }

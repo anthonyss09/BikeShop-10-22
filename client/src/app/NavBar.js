@@ -15,6 +15,7 @@ export default function NavBar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.users.user);
+  const cart = useSelector((state) => state.cart);
 
   const handleToggleMenu = () => {
     setToggleMenu(!toggleMenu);
@@ -69,6 +70,7 @@ export default function NavBar() {
           <Link to="/cart" className="nav-link">
             <FaShoppingCart size={25} />
           </Link>
+          <div className="cart-count">{cart.cartCount}</div>
         </div>
         {toggleUserBtn && button}
       </nav>

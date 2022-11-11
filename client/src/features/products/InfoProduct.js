@@ -14,11 +14,10 @@ export default function InfoProduct({
   manufactuer,
   price,
   name,
-  count,
   _id,
 }) {
   const dispatch = useDispatch();
-  const update = { image, manufactuer, price, name, count, _id };
+  const update = { image, manufactuer, price, name, count: 1, _id };
   // const user = JSON.parse(localStorage.getItem("user")) || null;
   const user = useSelector((state) => state.users.user) || null;
 
