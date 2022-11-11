@@ -40,6 +40,7 @@ const Wrapper = styled.nav`
     align-items: center;
     padding: 1rem;
     padding-bottom: 0.6rem;
+    background: white;
   }
   .nav-icons-right {
     display: flex;

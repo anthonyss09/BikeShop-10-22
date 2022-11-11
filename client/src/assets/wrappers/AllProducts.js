@@ -17,7 +17,7 @@ const Wrapper = styled.section`
   }
   section {
     text-align: center;
-    background: rgb(238, 238, 238);
+    background: rgb(248, 248, 248);
     margin: 1rem;
     // margin: 0 1rem;
     // padding-top: 1.4rem;

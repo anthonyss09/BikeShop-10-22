@@ -33,9 +33,14 @@ const Wrapper = styled.main`
       width: 55vw;
     }
     .header-text {
+      margin: 0;
+      margin-left: 1rem;
+      border-radius: 0.25rem;
       color: black;
-      height: 100%;
       width: 100%;
+      // background: white;
+      display: grid;
+      place-items: center;
     }
   }
 `;
