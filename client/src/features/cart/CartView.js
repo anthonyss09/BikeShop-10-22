@@ -1,14 +1,20 @@
 import Wrapper from "../../assets/wrappers/CartView";
-import { selectAllCartItems, createCheckoutSession } from "./cartSlice";
+import {
+  selectAllCartItems,
+  createCheckoutSession,
+  clearCart,
+} from "./cartSlice";
 import { useSelector, useDispatch } from "react-redux";
 import CartItemPreview from "./CartItemPreview";
 import { useEffect, useState } from "react";
+import { transferCartToOrdered, updateUser } from "../users/usersSlice";
 
 export default function CartView() {
   const cartItems = useSelector(selectAllCartItems);
   const subTotal = useSelector((state) => state.cart.cartSubTotal);
   const tax = useSelector((state) => state.cart.tax);
   const total = useSelector((state) => state.cart.cartTotal);
+  const user = useSelector((state) => state.users.user);
 
   const dispatch = useDispatch();
 
@@ -69,6 +75,10 @@ export default function CartView() {
     const query = new URLSearchParams(window.location.search);
 
     if (query.get("success")) {
+      dispatch(transferCartToOrdered({ userId: user._id }));
+      const newUser = JSON.parse(localStorage.getItem("user"));
+      dispatch(updateUser({ userId: user._id, update: newUser }));
+      dispatch(clearCart());
       setMessage("Order placed! You will receive an email confirmation.");
     }
 

@@ -50,60 +50,65 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     addItemToCart(state, action) {
-      const draft = current(state);
       const id = action.payload._id;
+      const price = action.payload.price;
       state.cartCount++;
-      if (draft.ids.includes(id)) {
+      let count = 1;
+      if (state.ids.includes(id)) {
         state.entities[id].count++;
+        count = state.entities[id].count;
       } else {
         cartAdapter.addOne(state, action.payload);
       }
-    },
-    removeItemFromCart(state, action) {
-      const id = action.payload._id;
-      const price = state.entities[id].price;
-      const count = state.entities[id].count;
-      const index = state.ids.indexOf(id);
-      if (count > 1) {
-        state.entities[id].count--;
-        state.cartCount--;
-      } else if (count === 1) {
-        state.ids.splice(index, 1);
-        delete state.entities[id];
-        state.cartSubTotal -= price;
-        state.tax = state.cartSubTotal * 0.0865;
-        state.cartTotal = state.tax + state.cartSubTotal;
-        state.cartCount--;
-        localStorage.setItem("localCart", JSON.stringify(state.entities));
-      }
-    },
-    updateItemTotal(state, action) {
-      const id = action.payload._id;
-      const draft = current(state);
-      const price = draft.entities[id].price;
-      const count = draft.entities[id].count;
       state.entities[id].total = price * count;
-    },
-    updateCartTotals(state, action) {
-      const price = action.payload.price;
       state.cartSubTotal += price;
       state.tax = state.cartSubTotal * 0.0865;
       state.cartTotal = state.tax + state.cartSubTotal;
+      localStorage.setItem("localCart", JSON.stringify(state.entities));
     },
-    addToLocalCart(state, action) {
-      const localCart = JSON.parse(localStorage.getItem("localCart")) || {};
-      const ids = Object.keys(localCart);
-      if (ids.includes(action.payload._id)) {
-        //update state, set local storage with udpated state value
-        localCart[action.payload._id].count++;
-        localStorage.setItem("localCart", JSON.stringify(localCart));
-
-        return;
+    removeItemFromCart(state, action) {
+      const id = action.payload._id;
+      const price = action.payload.price;
+      const count = state.entities[id].count;
+      const index = state.ids.indexOf(id);
+      state.cartCount--;
+      if (count > 1) {
+        state.entities[id].count--;
+      } else if (count === 1) {
+        state.ids.splice(index, 1);
+        delete state.entities[id];
       }
-      localCart[action.payload._id] = action.payload;
-      localStorage.setItem("localCart", JSON.stringify(localCart));
+      state.cartSubTotal -= price;
+      state.tax = state.cartSubTotal * 0.0865;
+      state.cartTotal = state.tax + state.cartSubTotal;
+      localStorage.setItem("localCart", JSON.stringify(state.entities));
     },
-    //coplyLocalToCart is neccessary upon login, will be called so cart is immediately updated and cart count can be accessed upon landing
+    // updateItemTotal(state, action) {
+    //   const id = action.payload._id;
+    //   const draft = current(state);
+    //   const price = draft.entities[id].price;
+    //   const count = draft.entities[id].count;
+    //   state.entities[id].total = price * count;
+    // },
+    // updateCartTotals(state, action) {
+    //   const price = action.payload.price;
+    //   state.cartSubTotal += price;
+    //   state.tax = state.cartSubTotal * 0.0865;
+    //   state.cartTotal = state.tax + state.cartSubTotal;
+    // },
+    // addToLocalCart(state, action) {
+    //   const localCart = JSON.parse(localStorage.getItem("localCart")) || {};
+    //   const ids = Object.keys(localCart);
+    //   if (ids.includes(action.payload._id)) {
+    //     //update state, set local storage with udpated state value
+    //     localCart[action.payload._id].count++;
+    //     localStorage.setItem("localCart", JSON.stringify(localCart));
+
+    //     return;
+    //   }
+    //   localCart[action.payload._id] = action.payload;
+    //   localStorage.setItem("localCart", JSON.stringify(localCart));
+    // },
     clearCart(state, action) {
       state.ids = [];
       state.entities = {};
@@ -112,6 +117,7 @@ export const cartSlice = createSlice({
       state.cartSubTotal = 0;
       state.cartTotal = 0;
     },
+    //coplyLocalToCart called upon login so cart is immediately updated and cart count can be accessed on first landing
     copyLocalToCart(state, action) {
       const ids = Object.keys(action.payload);
       const products = Object.values(action.payload);
@@ -124,7 +130,6 @@ export const cartSlice = createSlice({
         cartCount = products[0].count;
         cartSubTotal = products[0].count * products[0].price;
       }
-
       state.ids = ids;
       state.entities = action.payload;
       state.cartCount = cartCount;

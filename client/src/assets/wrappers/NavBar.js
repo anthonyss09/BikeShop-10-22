@@ -47,19 +47,23 @@ const Wrapper = styled.nav`
     gap: 1rem;
   }
   .nav-link {
-    color: black;
     text-decoration: none;
     font-weight: 500;
     color: rgb(40, 40, 40);
+    color: white;
   }
   .nav-links {
     padding: 0.4rem 1rem;
     background: rgb(238, 238, 238);
     background: rgb(250, 250, 250);
+    background: rgb(49, 57, 114);ß
     // background: rgb(193, 215, 222);
   }
   .user-circle:hover {
     cursor: pointer;
+  }
+  .shopping-cart {
+    color: black;
   }
 `;
 

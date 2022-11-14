@@ -67,7 +67,7 @@ export default function NavBar() {
             size={25}
             onClick={handleToggleUserBtn}
           />
-          <Link to="/cart" className="nav-link">
+          <Link to="/cart" className="nav-link shopping-cart">
             <FaShoppingCart size={25} />
           </Link>
           <div className="cart-count">{cart.cartCount}</div>

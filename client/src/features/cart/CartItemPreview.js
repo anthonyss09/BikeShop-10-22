@@ -33,28 +33,18 @@ export default function CartItemPreview({
       const newUser = JSON.parse(localStorage.getItem("user"));
       dispatch(updateUser({ userId: user._id, update: newUser }));
     }
-    dispatch(removeItemFromCart({ _id }));
-    if (count > 1) {
-      dispatch(updateItemTotal({ _id }));
-      const negPrice = Math.abs(price) * -1;
-      dispatch(updateCartTotals({ price: negPrice }));
-    }
-
-    // if (count === 1) {
-    //   dispatch(removeItemFromCart({ _id }));
-    // } else {
-    //   dispatch(decrementItem({ _id }));
+    dispatch(removeItemFromCart(update));
+    // if (count > 1) {
     //   dispatch(updateItemTotal({ _id }));
     //   const negPrice = Math.abs(price) * -1;
     //   dispatch(updateCartTotals({ price: negPrice }));
     // }
   };
   const handleIncremenet = () => {
-    // dispatch(incrementItem({ _id }));
     dispatch(addItemToCart(update));
-    dispatch(updateItemTotal({ _id }));
-    dispatch(updateCartTotals({ price }));
-    dispatch(addToLocalCart(update));
+    // dispatch(updateItemTotal({ _id }));
+    // dispatch(updateCartTotals({ price }));
+    // dispatch(addToLocalCart(update));
     if (user) {
       dispatch(
         addItemToUserCart({
@@ -62,10 +52,11 @@ export default function CartItemPreview({
           ...update,
         })
       );
+      const newUser = JSON.parse(localStorage.getItem("user"));
       dispatch(
         updateUser({
           userId: user._id,
-          update: update,
+          update: newUser,
         })
       );
     }

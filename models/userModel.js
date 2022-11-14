@@ -34,6 +34,7 @@ const UserSchema = new mongoose.Schema({
     select: false,
   },
   userCart: [ProductSchema],
+  orderedProducts: [ProductSchema],
   address: {
     type: AdressSchema,
     required: false,

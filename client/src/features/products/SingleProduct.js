@@ -15,6 +15,7 @@ export default function SingleProduct() {
     content = (
       <InfoProduct
         image={urlPre + product.image}
+        imageName={product.image}
         manufactuer={product.manufactuer}
         price={product.price}
         productName={product.name}

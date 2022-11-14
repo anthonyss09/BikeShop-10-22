@@ -72,7 +72,6 @@ const usersSlice = createSlice({
   initialState,
   reducers: {
     addItemToUserCart(state, action) {
-      const draft = current(state);
       const userCart = state.entities[action.payload.userId].userCart;
       const prodIds = userCart.map((prod) => prod._id);
       if (prodIds.includes(action.payload._id)) {
@@ -111,6 +110,26 @@ const usersSlice = createSlice({
       localStorage.removeItem("token");
       localStorage.removeItem("localCart");
     },
+    transferCartToOrdered(state, action) {
+      const orderedProducts =
+        state.entities[action.payload.userId].orderedProducts;
+      const orderedIds = orderedProducts.map((prod) => prod._id);
+      let userCart = state.entities[action.payload.userId].userCart;
+
+      userCart.map((prod, ind) => {
+        if (orderedIds.includes(prod._id)) {
+          const index = orderedIds.indexOf(prod._id);
+          orderedProducts[index].count += userCart[ind].count;
+        } else {
+          orderedProducts.push(prod);
+        }
+      });
+
+      state.entities[action.payload.userId].userCart = [];
+      state.user = state.entities[action.payload.userId];
+      localStorage.setItem("user", JSON.stringify(state.user));
+      localStorage.setItem("localCart", JSON.stringify({}));
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(registerUser.fulfilled, (state, action) => {
@@ -133,7 +152,11 @@ const usersSlice = createSlice({
   },
 });
 
-export const { addItemToUserCart, removeItemFromUserCart, logoutUser } =
-  usersSlice.actions;
+export const {
+  addItemToUserCart,
+  removeItemFromUserCart,
+  logoutUser,
+  transferCartToOrdered,
+} = usersSlice.actions;
 
 export default usersSlice.reducer;

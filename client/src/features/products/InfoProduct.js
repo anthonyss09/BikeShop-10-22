@@ -10,6 +10,7 @@ import { updateUser, addItemToUserCart } from "../users/usersSlice";
 
 export default function InfoProduct({
   image,
+  imageName,
   productName,
   manufactuer,
   price,
@@ -17,7 +18,7 @@ export default function InfoProduct({
   _id,
 }) {
   const dispatch = useDispatch();
-  const update = { image, manufactuer, price, name, count: 1, _id };
+  const update = { image: imageName, manufactuer, price, name, count: 1, _id };
   // const user = JSON.parse(localStorage.getItem("user")) || null;
   const user = useSelector((state) => state.users.user) || null;
 
@@ -30,17 +31,18 @@ export default function InfoProduct({
           ...update,
         })
       );
+      const newUser = JSON.parse(localStorage.getItem("user"));
       dispatch(
         updateUser({
           userId: user._id,
-          update: update,
+          update: newUser,
         })
       );
     }
     dispatch(addItemToCart(update));
-    dispatch(updateItemTotal({ _id, price }));
-    dispatch(updateCartTotals({ price }));
-    dispatch(addToLocalCart(update));
+    // dispatch(updateItemTotal({ _id, price }));
+    // dispatch(updateCartTotals({ price }));
+    // dispatch(addToLocalCart(update));
   };
   return (
     <Wrapper>

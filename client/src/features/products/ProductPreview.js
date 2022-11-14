@@ -50,9 +50,9 @@ export default function ProductPreview({
       );
     }
     dispatch(addItemToCart(update));
-    dispatch(updateItemTotal({ _id, price }));
-    dispatch(updateCartTotals({ price }));
-    dispatch(addToLocalCart(update));
+    // dispatch(updateItemTotal({ _id, price }));
+    // dispatch(updateCartTotals({ price }));
+    // dispatch(addToLocalCart(update));
   };
   return (
     <Wrapper>
