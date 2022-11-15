@@ -6,7 +6,7 @@ import SmallSidebar from "../components/SmallSideBar";
 import NavStrip from "../components/NavStrip";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutUser } from "../features/users/usersSlice";
-import { clearCart } from "../features/cart/cartSlice";
+import { clearCart, clearAlert } from "../features/cart/cartSlice";
 import Alert from "../components/Alert";
 
 export default function NavBar() {
@@ -36,11 +36,22 @@ export default function NavBar() {
     }
   };
 
+  const clearValues = () => {
+    dispatch(clearAlert());
+  };
+
   let content;
   if (!toggleMenu) {
-    content = <NavStrip />;
+    content = <NavStrip onClick={clearValues} />;
   } else {
-    content = <SmallSidebar onClick={handleToggleMenu} />;
+    content = (
+      <SmallSidebar
+        onClick={() => {
+          handleToggleMenu();
+          clearValues();
+        }}
+      />
+    );
   }
 
   let button;
@@ -69,7 +80,11 @@ export default function NavBar() {
             size={25}
             onClick={handleToggleUserBtn}
           />
-          <Link to="/cart" className="nav-link shopping-cart">
+          <Link
+            to="/cart"
+            className="nav-link shopping-cart"
+            onClick={clearValues}
+          >
             <FaShoppingCart size={25} />
           </Link>
           <div className="cart-count">{cart.cartCount}</div>
