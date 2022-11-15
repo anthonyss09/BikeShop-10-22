@@ -60,7 +60,13 @@ export default function ProductPreview({
     <Wrapper>
       <article>
         <div className="preview-container">
-          <Link to={"/products/" + _id} className="product-link">
+          <Link
+            to={"/products/" + _id}
+            className="product-link"
+            onClick={() => {
+              dispatch(clearAlert());
+            }}
+          >
             <img className="preview-image" src={image} alt={altText} />
             <p className="producer">{manufactuer}</p>
             <p className="name">{name}</p>

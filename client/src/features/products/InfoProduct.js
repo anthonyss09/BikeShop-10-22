@@ -1,11 +1,6 @@
 import Wrapper from "../../assets/wrappers/InfoProduct";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  addItemToCart,
-  updateItemTotal,
-  updateCartTotals,
-  addToLocalCart,
-} from "../cart/cartSlice";
+import { addItemToCart } from "../cart/cartSlice";
 import { updateUser, addItemToUserCart } from "../users/usersSlice";
 
 export default function InfoProduct({
@@ -19,7 +14,6 @@ export default function InfoProduct({
 }) {
   const dispatch = useDispatch();
   const update = { image: imageName, manufactuer, price, name, count: 1, _id };
-  // const user = JSON.parse(localStorage.getItem("user")) || null;
   const user = useSelector((state) => state.users.user) || null;
 
   const handleAddToCart = (e) => {
