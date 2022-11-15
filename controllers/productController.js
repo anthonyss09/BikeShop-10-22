@@ -67,7 +67,7 @@ const createProduct = async (req, res) => {
 };
 
 const createCheckoutSession = async (req, res) => {
-  const PRICE = req.body.cartTotal * 100;
+  const PRICE = (req.body.cartTotal * 100).toFixed(0);
   const DOMAIN = "http://localhost:3000/cart";
 
   const product = await stripe.products.create({

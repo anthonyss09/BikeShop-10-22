@@ -14,7 +14,20 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-
+.alert {
+  text-align: center;
+  margin: 1rem 1rem 0 1rem;
+  padding: 0.4rem;
+  font-size: 1.2rem;
+}
+.error {
+  background: rgb(247, 152, 161);
+  color: white;
+}
+.success {
+  background: rgb(145, 214, 235);
+  color: white;
+}
 .app {
   /* min-height: 68vh; */
   /* display: flex;

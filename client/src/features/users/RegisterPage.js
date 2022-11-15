@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import FormRegister from "./FormRegister";
-import { registerUser } from "./usersSlice";
+import { registerUser, clearAlert } from "./usersSlice";
+import { useDispatch, useSelector } from "react-redux";
+import Alert from "../../components/Alert";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 
 export default function RegisterPage() {
   const [firstName, setFirstName] = useState("");
@@ -12,6 +13,13 @@ export default function RegisterPage() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const users = useSelector((state) => state.users);
+  const { showAlert, alertType, alertText, status } = users;
+  console.log(showAlert);
+  const existingCart = useSelector((state) =>
+    Object.values(state.cart.entities)
+  );
 
   const handleFirstNameChange = (e) => {
     const value = e.target.value;
@@ -32,18 +40,40 @@ export default function RegisterPage() {
 
   const handleRegister = (e) => {
     e.preventDefault();
-    //clearCart();
-    dispatch(registerUser({ firstName, lastName, email, password }));
-    navigate("/");
+    dispatch(
+      registerUser({
+        firstName,
+        lastName,
+        email,
+        password,
+        userCart: existingCart ? existingCart : [],
+      })
+    );
   };
 
+  useEffect(() => {
+    if (status === "succeeded") {
+      setTimeout(() => {
+        navigate("/");
+        dispatch(clearAlert());
+      }, 3000);
+    } else if (status === "failed") {
+      setTimeout(() => {
+        dispatch(clearAlert());
+      }, 3000);
+    }
+  }, [status]);
+
   return (
-    <FormRegister
-      handleFirstNameChange={handleFirstNameChange}
-      handleLastNameChange={handleLastNameChange}
-      handlePasswordChange={handlePasswordChange}
-      handleEmailChange={handleEmailChange}
-      handleRegister={handleRegister}
-    />
+    <section>
+      {showAlert && <Alert alertType={alertType} alertText={alertText} />}
+      <FormRegister
+        handleFirstNameChange={handleFirstNameChange}
+        handleLastNameChange={handleLastNameChange}
+        handlePasswordChange={handlePasswordChange}
+        handleEmailChange={handleEmailChange}
+        handleRegister={handleRegister}
+      />
+    </section>
   );
 }

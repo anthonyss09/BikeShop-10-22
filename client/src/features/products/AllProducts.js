@@ -1,6 +1,7 @@
 import { useGetProductsQuery } from "../api/apiSlice";
 import Wrapper from "../../assets/wrappers/AllProducts";
 import ProductPreview from "./ProductPreview";
+import Alert from "../../components/Alert";
 
 export default function AllProducts() {
   const {
@@ -12,11 +13,16 @@ export default function AllProducts() {
     error,
     refetch,
   } = useGetProductsQuery();
+  console.log(isError);
+  console.log(error);
 
   let content;
   const urlPre = "../../data/uploads/";
 
-  if (isLoading) {
+  if (isError) {
+    content = <Alert aletType="error" alertText={error.error} />;
+    refetch();
+  } else if (isLoading) {
     content = <div>content loading...</div>;
   } else if (isSuccess && products.length === 0) {
     content = <div>No products in inventory.</div>;

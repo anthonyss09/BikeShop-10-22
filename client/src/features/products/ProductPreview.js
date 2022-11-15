@@ -1,11 +1,6 @@
 import Wrapper from "../../assets/wrappers/ProductPreview";
 import { Link } from "react-router-dom";
-import {
-  addItemToCart,
-  updateItemTotal,
-  updateCartTotals,
-  addToLocalCart,
-} from "../cart/cartSlice";
+import { addItemToCart, displayAlert, clearAlert } from "../cart/cartSlice";
 import { addItemToUserCart, updateUser } from "../users/usersSlice";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -20,6 +15,7 @@ export default function ProductPreview({
 }) {
   const user = JSON.parse(localStorage.getItem("user")) || null;
   // const user = useSelector((state) => state.user.user) || null;
+  const showAlert = useSelector((state) => state.cart.showAlert);
 
   const dispatch = useDispatch();
   const count = 1;
@@ -50,6 +46,12 @@ export default function ProductPreview({
       );
     }
     dispatch(addItemToCart(update));
+    dispatch(
+      displayAlert({ alertType: "success", alertText: "Item added to Cart!" })
+    );
+    setTimeout(() => {
+      dispatch(clearAlert());
+    }, 3000);
     // dispatch(updateItemTotal({ _id, price }));
     // dispatch(updateCartTotals({ price }));
     // dispatch(addToLocalCart(update));
@@ -64,7 +66,11 @@ export default function ProductPreview({
             <p className="name">{name}</p>
             <p className="price">${price}</p>
           </Link>
-          <button className="btn-add-to-cart" onClick={handleAddToCart}>
+          <button
+            className="btn-add-to-cart"
+            onClick={handleAddToCart}
+            disabled={showAlert}
+          >
             Add to cart
           </button>
         </div>

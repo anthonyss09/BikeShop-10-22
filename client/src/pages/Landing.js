@@ -7,6 +7,7 @@ import { copyLocalToCart } from "../features/cart/cartSlice";
 
 export default function Landing() {
   const user = useSelector((state) => state.users.user);
+
   // const user = JSON.parse(localStorage.getItem("user"));
 
   const dispatch = useDispatch();

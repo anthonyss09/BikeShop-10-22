@@ -7,6 +7,7 @@ import NavStrip from "../components/NavStrip";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutUser } from "../features/users/usersSlice";
 import { clearCart } from "../features/cart/cartSlice";
+import Alert from "../components/Alert";
 
 export default function NavBar() {
   const [toggleMenu, setToggleMenu] = useState(false);
@@ -16,6 +17,7 @@ export default function NavBar() {
   const navigate = useNavigate();
   const user = useSelector((state) => state.users.user);
   const cart = useSelector((state) => state.cart);
+  let { alertText, alertType, showAlert } = cart;
 
   const handleToggleMenu = () => {
     setToggleMenu(!toggleMenu);
@@ -75,6 +77,7 @@ export default function NavBar() {
         {toggleUserBtn && button}
       </nav>
       {content}
+      {showAlert && <Alert alertType={alertType} alertText={alertText} />}
     </Wrapper>
   );
 }

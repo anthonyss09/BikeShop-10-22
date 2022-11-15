@@ -24,6 +24,9 @@ const initialState = cartAdapter.getInitialState({
   cartTotal: localCartSubTotal
     ? localCartSubTotal + localCartSubTotal * 0.0865
     : 0,
+  alertType: "",
+  alertText: "",
+  showAlert: false,
 });
 
 export const createCheckoutSession = createAsyncThunk(
@@ -82,6 +85,16 @@ export const cartSlice = createSlice({
       state.tax = state.cartSubTotal * 0.0865;
       state.cartTotal = state.tax + state.cartSubTotal;
       localStorage.setItem("localCart", JSON.stringify(state.entities));
+    },
+    displayAlert(state, action) {
+      state.alertType = action.payload.alertType;
+      state.alertText = action.payload.alertText;
+      state.showAlert = true;
+    },
+    clearAlert(state, action) {
+      state.alertType = "";
+      state.alertText = "";
+      state.showAlert = false;
     },
     // updateItemTotal(state, action) {
     //   const id = action.payload._id;
@@ -150,6 +163,8 @@ export const {
   removeItemFromCart,
   decrementItem,
   incrementItem,
+  displayAlert,
+  clearAlert,
   updateItemTotal,
   updateCartTotals,
   addToLocalCart,
