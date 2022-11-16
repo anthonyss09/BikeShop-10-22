@@ -7,26 +7,36 @@ import NavStrip from "../components/NavStrip";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutUser } from "../features/users/usersSlice";
 import { clearCart, clearAlert } from "../features/cart/cartSlice";
+import {
+  toggleSideBar,
+  toggleLogButton,
+} from "../features/dropDowns/dropDownsSlice";
 import Alert from "../components/Alert";
 
 export default function NavBar() {
-  const [toggleMenu, setToggleMenu] = useState(false);
-  const [toggleUserBtn, setToggleUserBtn] = useState(false);
+  // const [toggleMenu, setToggleMenu] = useState(false);
+  // const [toggleUserBtn, setToggleUserBtn] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.users.user);
   const cart = useSelector((state) => state.cart);
   let { alertText, alertType, showAlert } = cart;
+  const { showLogButton, showSideBar } = useSelector(
+    (state) => state.dropDowns
+  );
 
   const handleToggleMenu = () => {
-    setToggleMenu(!toggleMenu);
+    // setToggleMenu(!toggleMenu);
+    dispatch(toggleSideBar(!showSideBar));
   };
   const handleToggleUserBtn = () => {
-    setToggleUserBtn(!toggleUserBtn);
+    // setToggleUserBtn(!toggleUserBtn);
+    dispatch(toggleLogButton(!showLogButton));
   };
   const handleButtonClick = () => {
-    setToggleUserBtn(!toggleUserBtn);
+    // setToggleUserBtn(!toggleUserBtn);
+    handleToggleUserBtn(!showLogButton);
     if (user) {
       dispatch(clearCart());
       dispatch(logoutUser());
@@ -41,14 +51,22 @@ export default function NavBar() {
   };
 
   let content;
-  if (!toggleMenu) {
-    content = <NavStrip onClick={clearValues} />;
+  if (!showSideBar) {
+    content = (
+      <NavStrip
+        onClick={() => {
+          clearValues();
+          dispatch(toggleLogButton(false));
+        }}
+      />
+    );
   } else {
     content = (
       <SmallSidebar
         onClick={() => {
           handleToggleMenu();
           clearValues();
+          dispatch(toggleLogButton(false));
         }}
       />
     );
@@ -72,7 +90,14 @@ export default function NavBar() {
   return (
     <Wrapper>
       <nav className="nav-bar">
-        <FaBars className="bars" size={25} onClick={handleToggleMenu} />
+        <FaBars
+          className="bars"
+          size={25}
+          onClick={() => {
+            handleToggleMenu();
+            dispatch(toggleLogButton(false));
+          }}
+        />
         <h3>The bike shop</h3>
         <div className="nav-icons-right">
           <FaUserCircle
@@ -83,13 +108,17 @@ export default function NavBar() {
           <Link
             to="/cart"
             className="nav-link shopping-cart"
-            onClick={clearValues}
+            onClick={() => {
+              clearValues();
+              dispatch(toggleSideBar(false));
+              dispatch(toggleLogButton(false));
+            }}
           >
             <FaShoppingCart size={25} />
           </Link>
           <div className="cart-count">{cart.cartCount}</div>
         </div>
-        {toggleUserBtn && button}
+        {showLogButton && button}
       </nav>
       {content}
       {showAlert && <Alert alertType={alertType} alertText={alertText} />}
