@@ -18,10 +18,10 @@ const initialState = usersAdapter.getInitialState({
   entities: currentUser ? { [userId]: { ...currentUser } } : {},
   token: localStorage.getItem("token") || null,
   user: currentUser ? currentUser : null,
-  showAlert: false,
-  alertType: "",
-  alertText: "",
-  status: "idle",
+  // showAlert: false,
+  // alertType: "",
+  // alertText: "",
+  // status: "idle",
 });
 
 export const registerUser = createAsyncThunk(
@@ -106,7 +106,7 @@ export const updateUser = createAsyncThunk(
         userId,
         update,
       });
-      dispatch(addItemToCart(update));
+      // dispatch(addItemToCart(update));
       dispatch(
         displayAlert({
           alertType: "success",
@@ -246,18 +246,18 @@ const usersSlice = createSlice({
     //   state.alertText = action.payload.error;
     //   state.status = "failed";
     // });
-    builder.addCase(updateUser.fulfilled, (state, action) => {
-      state.showAlert = true;
-      state.alertType = "success";
-      state.alertText = "Added item to cart.";
-      state.status = "succeeded";
-    });
-    builder.addCase(updateUser.rejected, (state, action) => {
-      state.showAlert = true;
-      state.alertType = "error";
-      state.alertText = action.payload;
-      state.status = "failed";
-    });
+    // builder.addCase(updateUser.fulfilled, (state, action) => {
+    //   state.showAlert = true;
+    //   state.alertType = "success";
+    //   state.alertText = "Added item to cart.";
+    //   state.status = "succeeded";
+    // });
+    // builder.addCase(updateUser.rejected, (state, action) => {
+    //   state.showAlert = true;
+    //   state.alertType = "error";
+    //   state.alertText = action.payload;
+    //   state.status = "failed";
+    // });
   },
 });
 

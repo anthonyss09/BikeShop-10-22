@@ -24,9 +24,9 @@ const initialState = cartAdapter.getInitialState({
   cartTotal: localCartSubTotal
     ? localCartSubTotal + localCartSubTotal * 0.0865
     : 0,
-  alertType: "",
-  alertText: "",
-  showAlert: false,
+  // alertType: "",
+  // alertText: "",
+  // showAlert: false,
 });
 
 export const createCheckoutSession = createAsyncThunk(
@@ -53,6 +53,7 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     addItemToCart(state, action) {
+      console.log(action.payload);
       const id = action.payload._id;
       const price = action.payload.price;
       state.cartCount++;
@@ -86,17 +87,17 @@ export const cartSlice = createSlice({
       state.cartTotal = state.tax + state.cartSubTotal;
       localStorage.setItem("localCart", JSON.stringify(state.entities));
     },
-    displayAlert(state, action) {
-      console.log("test display");
-      state.alertType = action.payload.alertType;
-      state.alertText = action.payload.alertText;
-      state.showAlert = true;
-    },
-    clearAlert(state, action) {
-      state.alertType = "";
-      state.alertText = "";
-      state.showAlert = false;
-    },
+    // displayAlert(state, action) {
+    //   console.log("test display");
+    //   state.alertType = action.payload.alertType;
+    //   state.alertText = action.payload.alertText;
+    //   state.showAlert = true;
+    // },
+    // clearAlert(state, action) {
+    //   state.alertType = "";
+    //   state.alertText = "";
+    //   state.showAlert = false;
+    // },
     // updateItemTotal(state, action) {
     //   const id = action.payload._id;
     //   const draft = current(state);

@@ -20,14 +20,15 @@ export default function InfoProduct({
 
   const handleAddToCart = async (e) => {
     if (user) {
+      const newUser = JSON.parse(localStorage.getItem("user"));
+      dispatch(updateUser({ userId: user._id, update: newUser }));
+      dispatch(addItemToCart(update));
       dispatch(
         addItemToUserCart({
           userId: user._id,
           ...update,
         })
       );
-      const newUser = JSON.parse(localStorage.getItem("user"));
-      dispatch(updateUser({ userId: user._id, update: newUser }));
     } else if (!user) {
       dispatch(addItemToCart(update));
       dispatch(
