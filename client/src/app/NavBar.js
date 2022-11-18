@@ -1,7 +1,6 @@
 import Wrapper from "../assets/wrappers/NavBar";
 import { FaBars, FaUserCircle, FaShoppingCart } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
 import SmallSidebar from "../components/SmallSideBar";
 import NavStrip from "../components/NavStrip";
 import { useSelector, useDispatch } from "react-redux";
@@ -19,24 +18,29 @@ export default function NavBar() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const user = useSelector((state) => state.users.user);
+  const { user } = useSelector((state) => state.users);
   const cart = useSelector((state) => state.cart);
-  let { alertText, alertType, showAlert } = cart;
+  let { alertText, alertType, showAlert } = useSelector(
+    (state) => state.alerts
+  );
   const { showLogButton, showSideBar } = useSelector(
     (state) => state.dropDowns
   );
 
-  const handleToggleMenu = () => {
+  const handleToggleMenu = (bool) => {
     // setToggleMenu(!toggleMenu);
-    dispatch(toggleSideBar(!showSideBar));
+    dispatch(toggleSideBar(bool));
   };
-  const handleToggleUserBtn = () => {
+  const handleToggleUserBtn = (bool) => {
     // setToggleUserBtn(!toggleUserBtn);
-    dispatch(toggleLogButton(!showLogButton));
+    dispatch(toggleLogButton(bool));
+  };
+  const clearValues = () => {
+    dispatch(clearAlert());
   };
   const handleButtonClick = () => {
     // setToggleUserBtn(!toggleUserBtn);
-    handleToggleUserBtn(!showLogButton);
+    handleToggleUserBtn(false);
     if (user) {
       dispatch(clearCart());
       dispatch(logoutUser());
@@ -46,17 +50,13 @@ export default function NavBar() {
     }
   };
 
-  const clearValues = () => {
-    dispatch(clearAlert());
-  };
-
   let content;
   if (!showSideBar) {
     content = (
       <NavStrip
         onClick={() => {
           clearValues();
-          dispatch(toggleLogButton(false));
+          handleToggleUserBtn(false);
         }}
       />
     );
@@ -64,9 +64,9 @@ export default function NavBar() {
     content = (
       <SmallSidebar
         onClick={() => {
-          handleToggleMenu();
+          handleToggleMenu(false);
+          handleToggleUserBtn(false);
           clearValues();
-          dispatch(toggleLogButton(false));
         }}
       />
     );
@@ -94,8 +94,8 @@ export default function NavBar() {
           className="bars"
           size={25}
           onClick={() => {
-            handleToggleMenu();
-            dispatch(toggleLogButton(false));
+            handleToggleMenu(!showSideBar);
+            handleToggleUserBtn(false);
           }}
         />
         <h3>The bike shop</h3>
@@ -103,15 +103,17 @@ export default function NavBar() {
           <FaUserCircle
             className="user-circle"
             size={25}
-            onClick={handleToggleUserBtn}
+            onClick={() => {
+              handleToggleUserBtn(!showLogButton);
+            }}
           />
           <Link
             to="/cart"
             className="nav-link shopping-cart"
             onClick={() => {
               clearValues();
-              dispatch(toggleSideBar(false));
-              dispatch(toggleLogButton(false));
+              handleToggleMenu(false);
+              handleToggleUserBtn(false);
             }}
           >
             <FaShoppingCart size={25} />

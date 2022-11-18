@@ -1,9 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import FormRegister from "./FormRegister";
 import { registerUser, clearAlert } from "./usersSlice";
 import { useDispatch, useSelector } from "react-redux";
-import Alert from "../../components/Alert";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 export default function RegisterPage() {
   const [firstName, setFirstName] = useState("");
@@ -12,11 +11,13 @@ export default function RegisterPage() {
   const [password, setPassword] = useState("");
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const users = useSelector((state) => state.users);
-  const { showAlert, alertType, alertText, status } = users;
-  console.log(showAlert);
+  // const { showAlert, alertType, alertText, status } = users;
+  // const { showAlert, alertType, alertText } = useSelector(
+  //   (state) => state.alerts
+  // );
   const existingCart = useSelector((state) =>
     Object.values(state.cart.entities)
   );
@@ -51,22 +52,21 @@ export default function RegisterPage() {
     );
   };
 
-  useEffect(() => {
-    if (status === "succeeded") {
-      setTimeout(() => {
-        navigate("/");
-        dispatch(clearAlert());
-      }, 3000);
-    } else if (status === "failed") {
-      setTimeout(() => {
-        dispatch(clearAlert());
-      }, 3000);
-    }
-  }, [status]);
+  // useEffect(() => {
+  //   if (status === "succeeded") {
+  //     setTimeout(() => {
+  //       navigate("/");
+  //       dispatch(clearAlert());
+  //     }, 3000);
+  //   } else if (status === "failed") {
+  //     setTimeout(() => {
+  //       dispatch(clearAlert());
+  //     }, 3000);
+  //   }
+  // }, [status]);
 
   return (
     <section>
-      {showAlert && <Alert alertType={alertType} alertText={alertText} />}
       <FormRegister
         handleFirstNameChange={handleFirstNameChange}
         handleLastNameChange={handleLastNameChange}

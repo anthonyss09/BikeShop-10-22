@@ -2,6 +2,7 @@ import Wrapper from "../../assets/wrappers/InfoProduct";
 import { useDispatch, useSelector } from "react-redux";
 import { addItemToCart } from "../cart/cartSlice";
 import { updateUser, addItemToUserCart } from "../users/usersSlice";
+import { displayAlert, clearAlert } from "../alerts/alertsSlice";
 
 export default function InfoProduct({
   image,
@@ -15,9 +16,9 @@ export default function InfoProduct({
   const dispatch = useDispatch();
   const update = { image: imageName, manufactuer, price, name, count: 1, _id };
   const user = useSelector((state) => state.users.user) || null;
+  const { showAlert } = useSelector((state) => state.alerts);
 
-  const handleAddToCart = (e) => {
-    e.preventDefault();
+  const handleAddToCart = async (e) => {
     if (user) {
       dispatch(
         addItemToUserCart({
@@ -26,17 +27,19 @@ export default function InfoProduct({
         })
       );
       const newUser = JSON.parse(localStorage.getItem("user"));
+      dispatch(updateUser({ userId: user._id, update: newUser }));
+    } else if (!user) {
+      dispatch(addItemToCart(update));
       dispatch(
-        updateUser({
-          userId: user._id,
-          update: newUser,
+        displayAlert({
+          alertType: "success",
+          alertText: "Item added to cart.",
         })
       );
+      setTimeout(() => {
+        dispatch(clearAlert());
+      }, 3000);
     }
-    dispatch(addItemToCart(update));
-    // dispatch(updateItemTotal({ _id, price }));
-    // dispatch(updateCartTotals({ price }));
-    // dispatch(addToLocalCart(update));
   };
   return (
     <Wrapper>
@@ -49,7 +52,11 @@ export default function InfoProduct({
           <div className="buying-info">
             <h2>{productName}</h2>
             <p className="product-price">${price}</p>
-            <button className="btn-add-cart" onClick={handleAddToCart}>
+            <button
+              className="btn-add-cart"
+              onClick={handleAddToCart}
+              disabled={showAlert}
+            >
               Add to cart
             </button>
             <h4>Specifications</h4>

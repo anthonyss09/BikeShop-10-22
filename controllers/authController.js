@@ -83,6 +83,9 @@ const updateUserCart = async (req, res) => {
     res.status(StatusCodes.OK).json({ updatedUser });
   } catch (error) {
     console.log(error);
+    res.status(StatusCodes.BAD_REQUEST).json({
+      error: error,
+    });
   }
 };
 

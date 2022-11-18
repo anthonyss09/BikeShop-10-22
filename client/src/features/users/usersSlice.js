@@ -3,6 +3,8 @@ import {
   createEntityAdapter,
   createAsyncThunk,
 } from "@reduxjs/toolkit";
+import { displayAlert, clearAlert } from "../alerts/alertsSlice";
+import { addItemToCart } from "../cart/cartSlice";
 
 import axios from "axios";
 
@@ -26,7 +28,7 @@ export const registerUser = createAsyncThunk(
   "users/register",
   async (
     { firstName, lastName, email, password, userCart },
-    { rejectWithValue }
+    { rejectWithValue, dispatch }
   ) => {
     try {
       const response = await axios.post("/api/auth/register", {
@@ -36,8 +38,27 @@ export const registerUser = createAsyncThunk(
         password,
         userCart,
       });
+      dispatch(
+        displayAlert({
+          alertType: "success",
+          alertText: "Registered user, redirecting...",
+        })
+      );
+      setTimeout(() => {
+        dispatch(clearAlert());
+        window.location.href = "/";
+      }, 3000);
       return response.data;
     } catch (error) {
+      dispatch(
+        displayAlert({
+          alertType: "error",
+          alertText: error.response.data.error,
+        })
+      );
+      setTimeout(() => {
+        dispatch(clearAlert());
+      }, 3000);
       throw rejectWithValue(error.response.data);
     }
   }
@@ -45,15 +66,33 @@ export const registerUser = createAsyncThunk(
 
 export const loginUser = createAsyncThunk(
   "users/login",
-  async ({ email, password }, { rejectWithValue }) => {
+  async ({ email, password }, { rejectWithValue, dispatch }) => {
     try {
       const user = await axios.post("/api/auth/login", {
         email,
         password,
       });
+      dispatch(
+        displayAlert({
+          alertType: "success",
+          alertText: "Logged user, redirecting...",
+        })
+      );
+      setTimeout(() => {
+        dispatch(clearAlert());
+        window.location.href = "/";
+      }, 3000);
       return user.data;
     } catch (error) {
-      console.log(error);
+      dispatch(
+        displayAlert({
+          alertType: "error",
+          alertText: error.response.data.error,
+        })
+      );
+      setTimeout(() => {
+        dispatch(clearAlert());
+      }, 3000);
       throw rejectWithValue(error.response.data);
     }
   }
@@ -61,15 +100,35 @@ export const loginUser = createAsyncThunk(
 //update user for both adding and removing items from user cart in db
 export const updateUser = createAsyncThunk(
   "users/updateUser",
-  async ({ userId, update }) => {
+  async ({ userId, update }, { rejectWithValue, dispatch }) => {
     try {
       const response = await axios.patch("/api/auth/updateUserCart", {
         userId,
         update,
       });
-      return response.data.updatedUser;
+      dispatch(addItemToCart(update));
+      dispatch(
+        displayAlert({
+          alertType: "success",
+          alertText: "Item added to cart.",
+        })
+      );
+      setTimeout(() => {
+        dispatch(clearAlert());
+      }, 3000);
+      return response.data;
     } catch (error) {
-      console.log(error);
+      dispatch(removeItemFromUserCart(update));
+      dispatch(
+        displayAlert({
+          alertType: "error",
+          alertText: error.response.data.error,
+        })
+      );
+      setTimeout(() => {
+        dispatch(clearAlert());
+      }, 3000);
+      throw rejectWithValue(error.response.data);
     }
   }
 );
@@ -120,12 +179,12 @@ const usersSlice = createSlice({
       localStorage.removeItem("token");
       localStorage.removeItem("localCart");
     },
-    clearAlert(state, action) {
-      state.showAlert = false;
-      state.alertText = "";
-      state.alertType = "";
-      state.status = "idle";
-    },
+    // clearAlert(state, action) {
+    //   state.showAlert = false;
+    //   state.alertText = "";
+    //   state.alertType = "";
+    //   state.status = "idle";
+    // },
     transferCartToOrdered(state, action) {
       const orderedProducts =
         state.entities[action.payload.userId].orderedProducts;
@@ -153,17 +212,17 @@ const usersSlice = createSlice({
       state.token = action.payload.token;
       localStorage.setItem("token", action.payload.token);
       localStorage.setItem("user", JSON.stringify(action.payload.user));
-      state.showAlert = true;
-      state.alertType = "success";
-      state.alertText = "Registered user, redirecting...";
-      state.status = "succeeded";
+      // state.showAlert = true;
+      // state.alertType = "success";
+      // state.alertText = "Registered user, redirecting...";
+      // state.status = "succeeded";
     });
-    builder.addCase(registerUser.rejected, (state, action) => {
-      state.showAlert = true;
-      state.alertType = "error";
-      state.alertText = action.payload.error;
-      state.status = "failed";
-    });
+    // builder.addCase(registerUser.rejected, (state, action) => {
+    //   state.showAlert = true;
+    //   state.alertType = "error";
+    //   state.alertText = action.payload.error;
+    //   state.status = "failed";
+    // });
     builder.addCase(loginUser.fulfilled, (state, action) => {
       state.entities[action.payload.user._id] = action.payload.user;
       state.ids.push(action.payload.user._id);
@@ -176,15 +235,27 @@ const usersSlice = createSlice({
         (product) => (normalCart[product._id] = product)
       );
       localStorage.setItem("localCart", JSON.stringify(normalCart));
+      // state.showAlert = true;
+      // state.alertType = "success";
+      // state.alertText = "Logging in user, redirecting...";
+      // state.status = "succeeded";
+    });
+    // builder.addCase(loginUser.rejected, (state, action) => {
+    //   state.showAlert = true;
+    //   state.alertType = "error";
+    //   state.alertText = action.payload.error;
+    //   state.status = "failed";
+    // });
+    builder.addCase(updateUser.fulfilled, (state, action) => {
       state.showAlert = true;
       state.alertType = "success";
-      state.alertText = "Logging in user, redirecting...";
+      state.alertText = "Added item to cart.";
       state.status = "succeeded";
     });
-    builder.addCase(loginUser.rejected, (state, action) => {
+    builder.addCase(updateUser.rejected, (state, action) => {
       state.showAlert = true;
       state.alertType = "error";
-      state.alertText = action.payload.error;
+      state.alertText = action.payload;
       state.status = "failed";
     });
   },
@@ -195,7 +266,6 @@ export const {
   removeItemFromUserCart,
   logoutUser,
   transferCartToOrdered,
-  clearAlert,
 } = usersSlice.actions;
 
 export default usersSlice.reducer;

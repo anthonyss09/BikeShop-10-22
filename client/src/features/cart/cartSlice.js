@@ -87,6 +87,7 @@ export const cartSlice = createSlice({
       localStorage.setItem("localCart", JSON.stringify(state.entities));
     },
     displayAlert(state, action) {
+      console.log("test display");
       state.alertType = action.payload.alertType;
       state.alertText = action.payload.alertText;
       state.showAlert = true;
@@ -161,8 +162,6 @@ export const {
 export const {
   addItemToCart,
   removeItemFromCart,
-  decrementItem,
-  incrementItem,
   displayAlert,
   clearAlert,
   updateItemTotal,

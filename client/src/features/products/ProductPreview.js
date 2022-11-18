@@ -1,8 +1,9 @@
 import Wrapper from "../../assets/wrappers/ProductPreview";
 import { Link } from "react-router-dom";
-import { addItemToCart, displayAlert, clearAlert } from "../cart/cartSlice";
+import { addItemToCart } from "../cart/cartSlice";
 import { addItemToUserCart, updateUser } from "../users/usersSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { displayAlert, clearAlert } from "../alerts/alertsSlice";
 
 export default function ProductPreview({
   imageName,
@@ -15,7 +16,8 @@ export default function ProductPreview({
 }) {
   const user = JSON.parse(localStorage.getItem("user")) || null;
   // const user = useSelector((state) => state.user.user) || null;
-  const showAlert = useSelector((state) => state.cart.showAlert);
+  // const { showAlert } = useSelector((state) => state.users);
+  const { showAlert } = useSelector((state) => state.alerts);
 
   const dispatch = useDispatch();
   const count = 1;
@@ -28,7 +30,7 @@ export default function ProductPreview({
     count,
   };
 
-  const handleAddToCart = (e) => {
+  const handleAddToCart = async (e) => {
     if (user) {
       dispatch(
         addItemToUserCart({
@@ -37,25 +39,32 @@ export default function ProductPreview({
         })
       );
       const newUser = JSON.parse(localStorage.getItem("user"));
-      // console.log(newUser);
+      dispatch(updateUser({ userId: user._id, update: newUser }));
+      // const res = dispatch(
+      //   updateUser({
+      //     userId: user._id,
+      //     update: newUser,
+      //   })
+      // );
+      // res.then((val) => {
+      //   if (val.meta.requestStatus === "fulfilled") {
+      //     dispatch(addItemToCart(update));
+      //   }
+      //   setTimeout(() => {
+      //     // dispatch(clearAlert());
+      //   }, 3000);
+      // });
+    } else if (!user) {
+      dispatch(addItemToCart(update));
       dispatch(
-        updateUser({
-          userId: user._id,
-          update: newUser,
-        })
+        displayAlert({ alertType: "success", alertText: "Item added to cart." })
       );
+      setTimeout(() => {
+        dispatch(clearAlert());
+      }, 3000);
     }
-    dispatch(addItemToCart(update));
-    dispatch(
-      displayAlert({ alertType: "success", alertText: "Item added to Cart!" })
-    );
-    setTimeout(() => {
-      dispatch(clearAlert());
-    }, 3000);
-    // dispatch(updateItemTotal({ _id, price }));
-    // dispatch(updateCartTotals({ price }));
-    // dispatch(addToLocalCart(update));
   };
+
   return (
     <Wrapper>
       <article>
