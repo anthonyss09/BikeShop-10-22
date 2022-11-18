@@ -15,8 +15,6 @@ export default function ProductPreview({
   name,
 }) {
   const user = JSON.parse(localStorage.getItem("user")) || null;
-  // const user = useSelector((state) => state.user.user) || null;
-  // const { showAlert } = useSelector((state) => state.users);
   const { showAlert } = useSelector((state) => state.alerts);
 
   const dispatch = useDispatch();
@@ -33,28 +31,16 @@ export default function ProductPreview({
   const handleAddToCart = async (e) => {
     if (user) {
       const newUser = JSON.parse(localStorage.getItem("user"));
-      dispatch(updateUser({ userId: user._id, update: newUser }));
-      dispatch(addItemToCart(update));
-      dispatch(
-        addItemToUserCart({
-          userId: user._id,
-          ...update,
-        })
-      );
-      // const res = dispatch(
-      //   updateUser({
-      //     userId: user._id,
-      //     update: newUser,
-      //   })
-      // );
-      // res.then((val) => {
-      //   if (val.meta.requestStatus === "fulfilled") {
-      //     dispatch(addItemToCart(update));
-      //   }
-      //   setTimeout(() => {
-      //     // dispatch(clearAlert());
-      //   }, 3000);
-      // });
+      const res = dispatch(updateUser({ userId: user._id, update: newUser }));
+      res.then(() => {
+        dispatch(addItemToCart(update));
+        dispatch(
+          addItemToUserCart({
+            userId: user._id,
+            ...update,
+          })
+        );
+      });
     } else if (!user) {
       dispatch(addItemToCart(update));
       dispatch(

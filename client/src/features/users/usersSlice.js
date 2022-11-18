@@ -18,10 +18,6 @@ const initialState = usersAdapter.getInitialState({
   entities: currentUser ? { [userId]: { ...currentUser } } : {},
   token: localStorage.getItem("token") || null,
   user: currentUser ? currentUser : null,
-  // showAlert: false,
-  // alertType: "",
-  // alertText: "",
-  // status: "idle",
 });
 
 export const registerUser = createAsyncThunk(
@@ -118,7 +114,7 @@ export const updateUser = createAsyncThunk(
       }, 3000);
       return response.data;
     } catch (error) {
-      dispatch(removeItemFromUserCart(update));
+      // dispatch(removeItemFromUserCart(update));
       dispatch(
         displayAlert({
           alertType: "error",
