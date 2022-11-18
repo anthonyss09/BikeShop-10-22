@@ -2,18 +2,14 @@ import Wrapper from "../../assets/wrappers/Form";
 import FormRow from "../../components/FormRow";
 import { useAddNewProductMutation } from "../api/apiSlice";
 import { useState } from "react";
-import { useSelector } from "react-redux";
 
 export default function AddProduct() {
-  const [addNewProduct, { isLoading }] = useAddNewProductMutation();
+  const [addNewProduct] = useAddNewProductMutation();
   const [name, setName] = useState("");
   const [manufactuer, setManufactuer] = useState("");
   const [price, setPrice] = useState("");
   const [type, setType] = useState("");
   const [image, setImage] = useState("");
-
-  // const user = useSelector((state) => state.users.user);
-  // const isAdmin = user ? user.admin : false;
 
   const handleNameChange = (e) => {
     setName(e.target.value);

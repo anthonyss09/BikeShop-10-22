@@ -13,9 +13,6 @@ import {
 import Alert from "../components/Alert";
 
 export default function NavBar() {
-  // const [toggleMenu, setToggleMenu] = useState(false);
-  // const [toggleUserBtn, setToggleUserBtn] = useState(false);
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.users);
@@ -28,18 +25,15 @@ export default function NavBar() {
   );
 
   const handleToggleMenu = (bool) => {
-    // setToggleMenu(!toggleMenu);
     dispatch(toggleSideBar(bool));
   };
   const handleToggleUserBtn = (bool) => {
-    // setToggleUserBtn(!toggleUserBtn);
     dispatch(toggleLogButton(bool));
   };
   const clearValues = () => {
     dispatch(clearAlert());
   };
   const handleButtonClick = () => {
-    // setToggleUserBtn(!toggleUserBtn);
     handleToggleUserBtn(false);
     if (user) {
       dispatch(clearCart());

@@ -87,7 +87,7 @@ export default function CartView() {
         "Order canceled -- continue to shop around and checkout when you're ready."
       );
     }
-  }, []);
+  }, [dispatch, user._id]);
 
   return <Wrapper>{message ? <Message message={message} /> : content}</Wrapper>;
 }

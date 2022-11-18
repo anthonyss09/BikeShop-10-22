@@ -1,8 +1,4 @@
-import {
-  createSlice,
-  createEntityAdapter,
-  createAsyncThunk,
-} from "@reduxjs/toolkit";
+import { createSlice, createEntityAdapter } from "@reduxjs/toolkit";
 
 const dropDownsAdapter = createEntityAdapter();
 

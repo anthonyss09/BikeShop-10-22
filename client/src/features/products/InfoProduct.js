@@ -50,7 +50,7 @@ export default function InfoProduct({
         <h4>{manufactuer}</h4>
         <div className="product-info">
           <div className="image-container">
-            <img src={image}></img>
+            <img src={image} alt="bike"></img>
           </div>
           <div className="buying-info">
             <h2>{productName}</h2>

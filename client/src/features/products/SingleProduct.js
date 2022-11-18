@@ -4,12 +4,21 @@ import InfoProduct from "./InfoProduct";
 
 export default function SingleProduct() {
   const { productId } = useParams();
-  const { data: product, isLoading, isSuccess } = useGetProductQuery(productId);
+  const {
+    data: product,
+    isLoading,
+    isSuccess,
+    isError,
+    refetch,
+  } = useGetProductQuery(productId);
 
   let content;
   const urlPre = "../../data/uploads/";
 
-  if (isLoading) {
+  if (isError) {
+    content = <div>error, reloading...</div>;
+    refetch();
+  } else if (isLoading) {
     content = <div>loading...</div>;
   } else if (isSuccess) {
     content = (

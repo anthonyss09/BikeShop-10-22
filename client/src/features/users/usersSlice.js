@@ -4,7 +4,6 @@ import {
   createAsyncThunk,
 } from "@reduxjs/toolkit";
 import { displayAlert, clearAlert } from "../alerts/alertsSlice";
-import { addItemToCart } from "../cart/cartSlice";
 
 import axios from "axios";
 
@@ -102,7 +101,6 @@ export const updateUser = createAsyncThunk(
         userId,
         update,
       });
-      // dispatch(addItemToCart(update));
       dispatch(
         displayAlert({
           alertType: "success",
@@ -114,7 +112,6 @@ export const updateUser = createAsyncThunk(
       }, 3000);
       return response.data;
     } catch (error) {
-      // dispatch(removeItemFromUserCart(update));
       dispatch(
         displayAlert({
           alertType: "error",
@@ -175,12 +172,6 @@ const usersSlice = createSlice({
       localStorage.removeItem("token");
       localStorage.removeItem("localCart");
     },
-    // clearAlert(state, action) {
-    //   state.showAlert = false;
-    //   state.alertText = "";
-    //   state.alertType = "";
-    //   state.status = "idle";
-    // },
     transferCartToOrdered(state, action) {
       const orderedProducts =
         state.entities[action.payload.userId].orderedProducts;
@@ -190,8 +181,10 @@ const usersSlice = createSlice({
         if (orderedIds.includes(prod._id)) {
           const index = orderedIds.indexOf(prod._id);
           orderedProducts[index].count += userCart[ind].count;
+          return orderedProducts;
         } else {
           orderedProducts.push(prod);
+          return orderedProducts;
         }
       });
       state.entities[action.payload.userId].userCart = [];
@@ -208,17 +201,7 @@ const usersSlice = createSlice({
       state.token = action.payload.token;
       localStorage.setItem("token", action.payload.token);
       localStorage.setItem("user", JSON.stringify(action.payload.user));
-      // state.showAlert = true;
-      // state.alertType = "success";
-      // state.alertText = "Registered user, redirecting...";
-      // state.status = "succeeded";
     });
-    // builder.addCase(registerUser.rejected, (state, action) => {
-    //   state.showAlert = true;
-    //   state.alertType = "error";
-    //   state.alertText = action.payload.error;
-    //   state.status = "failed";
-    // });
     builder.addCase(loginUser.fulfilled, (state, action) => {
       state.entities[action.payload.user._id] = action.payload.user;
       state.ids.push(action.payload.user._id);
@@ -231,29 +214,7 @@ const usersSlice = createSlice({
         (product) => (normalCart[product._id] = product)
       );
       localStorage.setItem("localCart", JSON.stringify(normalCart));
-      // state.showAlert = true;
-      // state.alertType = "success";
-      // state.alertText = "Logging in user, redirecting...";
-      // state.status = "succeeded";
     });
-    // builder.addCase(loginUser.rejected, (state, action) => {
-    //   state.showAlert = true;
-    //   state.alertType = "error";
-    //   state.alertText = action.payload.error;
-    //   state.status = "failed";
-    // });
-    // builder.addCase(updateUser.fulfilled, (state, action) => {
-    //   state.showAlert = true;
-    //   state.alertType = "success";
-    //   state.alertText = "Added item to cart.";
-    //   state.status = "succeeded";
-    // });
-    // builder.addCase(updateUser.rejected, (state, action) => {
-    //   state.showAlert = true;
-    //   state.alertType = "error";
-    //   state.alertText = action.payload;
-    //   state.status = "failed";
-    // });
   },
 });
 

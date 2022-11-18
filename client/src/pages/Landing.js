@@ -8,8 +8,6 @@ import { copyLocalToCart } from "../features/cart/cartSlice";
 export default function Landing() {
   const user = useSelector((state) => state.users.user);
 
-  // const user = JSON.parse(localStorage.getItem("user"));
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -18,11 +16,11 @@ export default function Landing() {
 
       dispatch(copyLocalToCart(localCart));
     }
-  }, [user]);
+  }, [user, dispatch]);
   return (
     <Wrapper>
       <section className="header">
-        <img src={landingBike} className="header-image" />
+        <img src={landingBike} className="header-image" alt="bike" />
         <h3 className="header-text">
           Rediscover
           <br /> the world on a bike

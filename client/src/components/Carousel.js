@@ -1,34 +1,13 @@
-import AliceCarousel from "react-alice-carousel";
-import "react-alice-carousel/lib/alice-carousel.css";
+// import "react-alice-carousel/lib/alice-carousel.css";
 import basketBike from "../assets/images/basketBike.jpg";
 import blackWhiteBike from "../assets/images/blackWhiteBike.jpg";
 import lightGreenBike from "../assets/images/lightGreenBike.jpg";
 import whiteBike from "../assets/images/whiteBike.jpg";
-import CarouselItem from "./CarouselItem";
-
 import MultiCarousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import ProductPreview from "../features/products/ProductPreview";
 
 export default function Carousel() {
-  // const responsive = {
-  //   desktop: {
-  //     breakpoint: { max: 3000, min: 1024 },
-  //     items: 5,
-  //     slidesToSlide: 3, // optional, default to 1.
-  //   },
-  //   tablet: {
-  //     breakpoint: { max: 1024, min: 464 },
-  //     items: 3,
-  //     slidesToSlide: 2, // optional, default to 1.
-  //   },
-  //   mobile: {
-  //     breakpoint: { max: 464, min: 0 },
-  //     items: 3,
-  //     slidesToSlide: 1, // optional, default to 1.
-  //   },
-  // };
-
   return (
     <MultiCarousel
       additionalTransfrom={0}

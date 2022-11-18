@@ -1,7 +1,6 @@
 import {
   createSlice,
   createEntityAdapter,
-  current,
   createAsyncThunk,
 } from "@reduxjs/toolkit";
 import axios from "axios";
@@ -24,9 +23,6 @@ const initialState = cartAdapter.getInitialState({
   cartTotal: localCartSubTotal
     ? localCartSubTotal + localCartSubTotal * 0.0865
     : 0,
-  // alertType: "",
-  // alertText: "",
-  // showAlert: false,
 });
 
 export const createCheckoutSession = createAsyncThunk(
@@ -87,43 +83,6 @@ export const cartSlice = createSlice({
       state.cartTotal = state.tax + state.cartSubTotal;
       localStorage.setItem("localCart", JSON.stringify(state.entities));
     },
-    // displayAlert(state, action) {
-    //   console.log("test display");
-    //   state.alertType = action.payload.alertType;
-    //   state.alertText = action.payload.alertText;
-    //   state.showAlert = true;
-    // },
-    // clearAlert(state, action) {
-    //   state.alertType = "";
-    //   state.alertText = "";
-    //   state.showAlert = false;
-    // },
-    // updateItemTotal(state, action) {
-    //   const id = action.payload._id;
-    //   const draft = current(state);
-    //   const price = draft.entities[id].price;
-    //   const count = draft.entities[id].count;
-    //   state.entities[id].total = price * count;
-    // },
-    // updateCartTotals(state, action) {
-    //   const price = action.payload.price;
-    //   state.cartSubTotal += price;
-    //   state.tax = state.cartSubTotal * 0.0865;
-    //   state.cartTotal = state.tax + state.cartSubTotal;
-    // },
-    // addToLocalCart(state, action) {
-    //   const localCart = JSON.parse(localStorage.getItem("localCart")) || {};
-    //   const ids = Object.keys(localCart);
-    //   if (ids.includes(action.payload._id)) {
-    //     //update state, set local storage with udpated state value
-    //     localCart[action.payload._id].count++;
-    //     localStorage.setItem("localCart", JSON.stringify(localCart));
-
-    //     return;
-    //   }
-    //   localCart[action.payload._id] = action.payload;
-    //   localStorage.setItem("localCart", JSON.stringify(localCart));
-    // },
     clearCart(state, action) {
       state.ids = [];
       state.entities = {};

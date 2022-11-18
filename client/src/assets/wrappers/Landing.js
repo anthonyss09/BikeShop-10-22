@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import mainBike from "../images/landingBike.jpg";
 
 const Wrapper = styled.main`
   .header {
