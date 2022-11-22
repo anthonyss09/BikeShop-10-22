@@ -92,7 +92,7 @@ export default function NavBar() {
             handleToggleUserBtn(false);
           }}
         />
-        <h3>The bike shop</h3>
+        <h3>The Bike Shop</h3>
         <div className="nav-icons-right">
           <FaUserCircle
             className="user-circle"
