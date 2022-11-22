@@ -1,10 +1,10 @@
-## :bike: Welcome to The Bike Shop
+# :bike: Welcome to The Bike Shop
 
 The Bike Shop is an ecommerce web app aimed at selling bikes. This app is minimally styled and meant to showcase the tech stacks and frameworks in use. Keep reading for more details on implementation.
 
 ![homePage](/assets/images/homePage.png)
 
-## description
+# description
 
 The project's base stack is: react, nodejs, express, mongodb.
 Redux toolkit is leveraged to manage global state. Within RTK (redux toolkit) this project takes advantage of RTK query.
@@ -17,15 +17,15 @@ The object data modelling library Mongoose is used to create model structures an
 
 As of now the bike shop takes test payments using stripe.
 
-## features
+# features
 
-###### adding products as admin
+## adding products as admin
 
 User models contain a boolean admin property. An initial check is performed on the frontend wether to display the menu link to `addProduct`. A secondary admin check is done on the backend within the controller `createProduct` which is passed the user object.
 The npm package multer is used to to upload images when adding products.
 [multer](https://www.npmjs.com/package/multer)
 
-###### shopping cart
+## shopping cart
 
 Shopping cart data for users who are not logged in are stored on local storage. Initial state data for cart is loaded from local storage if local storage cart data exists.
 
@@ -33,13 +33,13 @@ The user model contains the userCart property which is copied to localCart upon 
 
 ![shoppingCart](/assets/images/shoppingCart.png)
 
-###### accepting payments
+## accepting payments
 
 Currently this app accepts payments in a rudementary test of stripe. In /controllers/productController.js `createCheckoutSession` creates a stripe check out session. The controller function accepts a total and uses the stripe api to create a product, price and session.
 
 [stripe](https://stripe.com/payments/checkout)
 
-## installation
+# installation
 
 - Have use of some code editor e.g. VSC code or atom.
 - clone git repository
