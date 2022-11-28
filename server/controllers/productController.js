@@ -10,8 +10,8 @@ import {
   NotFoundError,
   UnauthenticatedError,
 } from "../Errors/index.js";
-import { useAccordionButton } from "react-bootstrap";
-import { response } from "express";
+// import { useAccordionButton } from "react-bootstrap";
+// import { response } from "express";
 
 const getAllProducts = async (req, res) => {
   try {
