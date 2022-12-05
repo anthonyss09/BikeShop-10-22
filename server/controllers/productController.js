@@ -1,5 +1,4 @@
 import Product from "../models/productModel.js";
-import mongoose from "mongoose";
 import Stripe from "stripe";
 const stripe = new Stripe(
   "sk_test_51LuIXnA3543f5hOkxXS8ewm1AlEMJzEqt4MHBGrV3je1IfiFwiixpp94FqHW5SHOatZri2sboL9JFk6AamlBTw7H00cX6LsqY8"
@@ -10,8 +9,6 @@ import {
   NotFoundError,
   UnauthenticatedError,
 } from "../Errors/index.js";
-// import { useAccordionButton } from "react-bootstrap";
-// import { response } from "express";
 
 const getAllProducts = async (req, res) => {
   try {
