@@ -5,7 +5,8 @@ services:
     build:
       context: ./server
       dockerfile: Dockerfile
-    image: myapp-server
+    # image: myapp-server
+    image: anthonyss09/thebikeshop:bike-server
     container_name: myapp-node-server
     command: /usr/src/app/node_modules/.bin/nodemon server.js
     volumes:
@@ -21,7 +22,8 @@ services:
     networks:
       - app-network
   mongo:
-    image: mongo
+    # image: mongo
+    image: anthonyss09/thebikeshop:bike-mongo
     volumes:
       - data-volume:/data/db
     ports:
@@ -32,7 +34,8 @@ services:
     build:
       context: ./client
       dockerfile: Dockerfile
-    image: myapp-client
+    # image: myapp-client
+    image: anthonyss09/thebikeshop:bike-client
     container_name: myapp-react-client
     command: npm start
     volumes:
