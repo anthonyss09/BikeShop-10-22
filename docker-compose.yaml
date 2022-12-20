@@ -5,13 +5,16 @@ services:
     build:
       context: ./server
       dockerfile: Dockerfile
-    # image: myapp-server
     image: anthonyss09/thebikeshop:bike-server
     container_name: myapp-node-server
+    logging:
+      driver: awslogs
+      options:
+        awslogs-region: us-east-1
+        awslogs-group: bike-server-container
     command: /usr/src/app/node_modules/.bin/nodemon server.js
     volumes:
-      - ./server/:/usr/src/app
-      - /usr/src/app/node_modules
+      - my-data:/user/src/app
     ports:
       - "5000:5000"
     depends_on:
@@ -22,10 +25,9 @@ services:
     networks:
       - app-network
   mongo:
-    # image: mongo
     image: anthonyss09/thebikeshop:bike-mongo
     volumes:
-      - data-volume:/data/db
+      - my-data:/data/db
     ports:
       - "27017:27017"
     networks:
@@ -34,17 +36,20 @@ services:
     build:
       context: ./client
       dockerfile: Dockerfile
-    # image: myapp-client
     image: anthonyss09/thebikeshop:bike-client
     container_name: myapp-react-client
-    command: npm start
+    logging:
+      driver: awslogs
+      options:
+        awslogs-region: us-east-1
+        awslogs-group: bike-client-container
+    command: npm run build
     volumes:
-      - ./client/:/usr/app
-      - /usr/app/node_modules
+      - my-data:/user/app
     depends_on:
       - server
     ports:
-      - "3000:3000"
+      - "80:80"
     networks:
       - app-network
 
@@ -53,7 +58,7 @@ networks:
     driver: bridge
 
 volumes:
-  data-volume:
+  my-data:
   node_modules:
   web-root:
     driver: local

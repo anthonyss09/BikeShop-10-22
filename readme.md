@@ -2,7 +2,7 @@
 
 The Bike Shop is an ecommerce web app aimed at selling bikes. This app is minimally styled and meant to showcase the tech stacks and frameworks in use. Keep reading for more details on implementation.
 
-![homePage](/assets/images/homePage.png)
+![homePage](/client/src/assets/images/homePage.png)
 
 # description
 
@@ -31,7 +31,7 @@ Shopping cart data for users who are not logged in are stored on local storage. 
 
 The user model contains the userCart property which is copied to localCart upon login so initial state data can be accurate and accessible. If user is logged in and cart is updated patch requests are sent to data base updating `userCart` all actions updating `user` and `userCart` are performed in `userSlice`. The user object on local storage is then updated while the localCart is updated within `cartSlice` (where all cart updates pertaining to non logged in users are made).
 
-![shoppingCart](/assets/images/shoppingCart.png)
+![shoppingCart](/client/src/assets/images/shoppingCart.png)
 
 ## accepting payments
 
